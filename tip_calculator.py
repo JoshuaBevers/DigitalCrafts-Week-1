@@ -80,9 +80,10 @@ def calculate(bill, tipPercent, NoOfSplits):
     # Calculates the tippedBill
     tippedBill = bill + tip
     print("The total bill is: " + str(tippedBill)+ "$")
-    # The reason I do it this way it to allow for future math service. E.G five star rating discounts.
+    #does math to get the total for each split check.
     splitCheck = tippedBill / NoOfSplits
-    print("After splitting the check '" + str(NoOfSplits) + "' ways. Each person needs to pay: " + str(splitCheck))
+    print("After splitting the check '" + str(NoOfSplits) + "' ways. Each person needs to pay: " + str(splitCheck) + "$")
+     # The reason I do it this way it to allow for future math service. E.G five star rating discounts.
 
 # defines the run program
 def run():
