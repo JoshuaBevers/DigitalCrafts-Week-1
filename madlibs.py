@@ -1,14 +1,3 @@
-def breakString(lib):
-    user_input = []
-    madlib_sentence = []
-    madlib_sentence = lib.split(' ')
-    print(madlib_sentence)
-    # for x in range(len())
-
-
-# for x in range(len(arr1)):
-#     print(arr1[x])
-
 with open('madlib_read_file.txt') as f:
     flat_list=[word for line in f for word in line.split()]
     emptyString = ""
@@ -41,16 +30,5 @@ with open('madlib_read_file.txt') as f:
     print(emptyString)
             
     
-
-
-# with open("madlib_read_file.txt") as file:
-#     blank_madlib = file.read()
-   
-#     for line in blank_madlib:
-#         words = blank_madlib.split()
-        
-#         if words == '(adverb)':
-#             words = input("Please enter a adjective")
-#             print(words)
-        
+#known issues with code. Does not remove the tags that the if statements search for. WIP.
 
