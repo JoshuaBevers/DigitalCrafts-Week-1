@@ -61,18 +61,17 @@ def getPercent(service):
 
 # Determines how many times the check should be split.
 def splitTheCheck():
-    numberofSplits = int(input("How many ways would you like to split the check?"))
+    numberofSplits = input("How many ways would you like to split the check?")
     validatedNumberofSplits = validateNumberofSplits(numberofSplits)
-
     return validatedNumberofSplits
 
 def validateNumberofSplits(Splits):
-    if validateFloat(Splits) == True:
-        
+    checkedSplits = validateFloat(Splits)
+    if checkedSplits == True:
+        return int(Splits)
     if validateFloat(Splits) == False:
         print("I'm sorry. That is not a valid input for the number of splits.")
         exit(1)
-
 
 def calculate(bill, tipPercent, NoOfSplits):
     # Calcualted the tip
@@ -98,7 +97,5 @@ def run():
     # Caculates the total bill and prints the results and it goes along
     calculate(bill, tipPercent, NoOfSplits)
   
-
-
 #runs the program
 run()
