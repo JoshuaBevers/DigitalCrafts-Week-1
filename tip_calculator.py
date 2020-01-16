@@ -1,70 +1,94 @@
-# build a tip calculator
-# The goal of this bit is to 'reach for the sword'
-# I'm practicing functions, arguments, and calls in python
+# Returns the bill total
+def getBill() :
+    bill = float(input("Please enter the total for the bill. \n Total: "))
+    #validates bill
+    newBill = validateGetBill(bill)
+    return newBill
 
-# get the total amount of the bill
-bill = float(input("How much was the total bill? : "))
+# Validates the data for getBillTotal
+def validateGetBill(bill):
+    validatedBill = validateFloat(bill)
+    if validatedBill == False:
+        print("I'm sorry. '" + str(bill)+ "' is not a valid input. Please enter a valid number for the bill.")
+        exit(1)
+    return bill
 
-# prompt the user for the level of service
+def validateFloat(bill):
+    try:
+        float(bill)
+        return bill
+    except ValueError:
+        return False
 
-service = input("What was your level of service \n bad? \n Fair? \n good? \n Please type in one of the above suggestions: ")
+# Returns the input for question for service
+def getServiceInput():
+    # Gets service
+    service = input("Please provide a service report. Good = 20% tip, fair = 15% tip, bad = 10% tip. \n Service feedback: ")
+    # Validate service
+    validateGetServiceInput(service)
+    return service
 
-def calculate(bill, service):
-    tip = bill * good_service(service)
-    print(tip)
-    totalbill = bill + tip
-    print(round(totalbill, 2))
-    return totalbill
+# Validates
+def validateGetServiceInput(service):
+    validatedString = validateString(service)
+    if validatedString == True:
+        return service
 
-# get the various level of services.
-def good_service(service):
-    while (True):
-        try:  
-            if service == "bad":
-                break
-                return .1
-            if service == "good":
-                break
-                return .15
-            if service == "fair":
-                break
-                return .2
-            else:
-                print("that is not a valid service. Please run the program again.")
-        except:
-            print("This failed ingracefully.")
+def validateString(service):
+    try:
+        float(service)
+        print("I'm sorry. '" + str(service)+ "' is not a valid input. Please enter a valid input for a service")
+        exit(1)
+    except ValueError:
+        return False
 
-THEBILL = calculate(bill, service)
-
-#assignment two, Split the check
-
-def splitTheCheck():
-    split = input("would you like to split the check? Y/N : ")
-    if split == "y":
-        splits = input("how many ways?")
-        return splits
-    else:
-        print("Your total is " + str(THEBILL))
-
-def splitCalculate(split):
-    newbill = float(THEBILL) / float(split)
-    print("Your new total is: " + str(newbill))
-
-# splits the check
-num_of_splits = splitTheCheck()
-
-#calculates the total from the number of splits
-splitCalculate(num_of_splits)
+# Gets tip percent and returns it to run()
+def getTipPercent(service):
+    tip = getPercent(service)
+    validatedFloat = validateFloat(tip)
+    return tip
 
 
-# the simple way of solving this problem.
-# This lacks certain UI perks or hints that are provided in the above example. E.G displaying the level of services available.
-# If the user doesn't enter a valid service level below, it doesn't tell you what when wrong.
 
-bill = float(input("What is the total off the bill? \n"))
-tip = input("What is the level of service?")
-split = input("How many ways are you splitting the bill?")
+def getPercent(service):
+    if service.lower() == "good":
+        return .2
+    if service.lower() == "fair":
+        return .15
+    if service.lower() == "bad":
+        return .1
 
-print("the total tip is: " + str(tip))
-service2 = .1 if tip == "bad" else .15 if tip == "good" and tip != "fair" else "This is not a valid selection."
-print()
+def validateFloat(tip):
+    try:
+        float(tip)
+        return True
+    except ValueError:
+        return False
+
+
+def calculate(bill, tipPercent):
+    # Calcualted the tip
+    tip =  bill * tipPercent
+    print("The tip for the bill is: " + str(tip) + "$")
+    # Calculates the tippedBill
+    tippedBill = bill + tip
+    print("The tippedBill is: " + str(tippedBill)+ "$")
+    # The reason I do it this way it to allow for future math service. E.G five star rating discounts.
+    totalBill = tippedBill
+    return totalBill
+
+# defines the run program
+def run():
+    # Gets the bill
+    bill = getBill()
+    # Gets service
+    service = getServiceInput()
+    # Gets tip percent based on service
+    tipPercent = getTipPercent(service)
+    # Caculates the total bill
+    CALCULATEDBILL = calculate(bill, tipPercent)
+    print("The TotalBill per person is: " + str(CALCULATEDBILL) + "$")
+
+
+#runs the program
+run()
