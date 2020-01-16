@@ -1,6 +1,7 @@
 # Returns the bill total
 def getBill() :
-    bill = float(input("Please enter the total for the bill. \n Total: "))
+    #gets the input
+    bill = input("Please enter the total for the bill. \n Total: ")
     #validates bill
     newBill = validateGetBill(bill)
     return newBill
@@ -8,15 +9,17 @@ def getBill() :
 # Validates the data for getBillTotal
 def validateGetBill(bill):
     validatedBill = validateFloat(bill)
+    if validatedBill == True:
+        newBill = float(bill)
+        return newBill
     if validatedBill == False:
         print("I'm sorry. '" + str(bill)+ "' is not a valid input. Please enter a valid number for the bill.")
         exit(1)
-    return bill
 
-def validateFloat(bill):
+def validateFloat(Float):
     try:
-        float(bill)
-        return bill
+        float(Float)
+        return True
     except ValueError:
         return False
 
@@ -28,7 +31,7 @@ def getServiceInput():
     validateGetServiceInput(service)
     return service
 
-# Validates
+# Validates Service
 def validateGetServiceInput(service):
     validatedString = validateString(service)
     if validatedString == True:
@@ -48,8 +51,6 @@ def getTipPercent(service):
     validatedFloat = validateFloat(tip)
     return tip
 
-
-
 def getPercent(service):
     if service.lower() == "good":
         return .2
@@ -58,24 +59,31 @@ def getPercent(service):
     if service.lower() == "bad":
         return .1
 
-def validateFloat(tip):
-    try:
-        float(tip)
-        return True
-    except ValueError:
-        return False
+# Determines how many times the check should be split.
+def splitTheCheck():
+    numberofSplits = int(input("How many ways would you like to split the check?"))
+    validatedNumberofSplits = validateNumberofSplits(numberofSplits)
+
+    return validatedNumberofSplits
+
+def validateNumberofSplits(Splits):
+    if validateFloat(Splits) == True:
+        
+    if validateFloat(Splits) == False:
+        print("I'm sorry. That is not a valid input for the number of splits.")
+        exit(1)
 
 
-def calculate(bill, tipPercent):
+def calculate(bill, tipPercent, NoOfSplits):
     # Calcualted the tip
     tip =  bill * tipPercent
     print("The tip for the bill is: " + str(tip) + "$")
     # Calculates the tippedBill
     tippedBill = bill + tip
-    print("The tippedBill is: " + str(tippedBill)+ "$")
+    print("The total bill is: " + str(tippedBill)+ "$")
     # The reason I do it this way it to allow for future math service. E.G five star rating discounts.
-    totalBill = tippedBill
-    return totalBill
+    splitCheck = tippedBill / NoOfSplits
+    print("After splitting the check '" + str(NoOfSplits) + "' ways. Each person needs to pay: " + str(splitCheck))
 
 # defines the run program
 def run():
@@ -85,9 +93,11 @@ def run():
     service = getServiceInput()
     # Gets tip percent based on service
     tipPercent = getTipPercent(service)
-    # Caculates the total bill
-    CALCULATEDBILL = calculate(bill, tipPercent)
-    print("The TotalBill per person is: " + str(CALCULATEDBILL) + "$")
+    #calculates the number of times to be split
+    NoOfSplits = splitTheCheck()
+    # Caculates the total bill and prints the results and it goes along
+    calculate(bill, tipPercent, NoOfSplits)
+  
 
 
 #runs the program
